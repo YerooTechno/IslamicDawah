@@ -1,1 +1,1094 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Islamic Da'wah Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --sidebar-bg: #1e293b;
+            --sidebar-active: #166534;
+            --sidebar-hover: #334155;
+            --content-bg: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--content-bg);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            width: 260px;
+            background: var(--sidebar-bg);
+            color: white;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        
+        .sidebar-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .sidebar-header p {
+            margin: 0;
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+        
+        .nav-menu {
+            padding: 1rem 0;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 0.9rem 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+        
+        .nav-item:hover {
+            background: var(--sidebar-hover);
+            color: white;
+        }
+        
+        .nav-item.active {
+            background: rgba(22, 101, 52, 0.2);
+            border-left-color: var(--sidebar-active);
+            color: white;
+        }
+        
+        .nav-icon {
+            width: 24px;
+            margin-right: 12px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 260px;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        /* Cards */
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        /* Tables */
+        .data-table {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .table-header {
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .table-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .table-content {
+            padding: 0;
+        }
+        
+        /* Badges */
+        .badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .badge-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .badge-answered {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .badge-active {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .badge-suspended {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        
+        /* Charts */
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal {
+            background: white;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 80px;
+            }
+            
+            .main-content {
+                margin-left: 80px;
+            }
+            
+            .nav-text {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 15px;
+            }
+            
+            .stat-card {
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h3>Admin Panel</h3>
+            <p>Islamic Da'wah Platform</p>
+        </div>
+        
+        <div class="nav-menu">
+            <a href="#" class="nav-item active" onclick="showDashboard()">
+                <div class="nav-icon">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <span class="nav-text">Dashboard</span>
+            </a>
+            
+            <a href="#" class="nav-item" onclick="showQuestions()">
+                <div class="nav-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <span class="nav-text">Questions</span>
+                <span class="badge badge-danger ms-auto" id="pendingBadge">0</span>
+            </a>
+            
+            <a href="#" class="nav-item" onclick="showUsers()">
+                <div class="nav-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <span class="nav-text">Users</span>
+            </a>
+            
+            <a href="#" class="nav-item" onclick="showContent()">
+                <div class="nav-icon">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <span class="nav-text">Content</span>
+            </a>
+            
+            <a href="#" class="nav-item" onclick="showAnalytics()">
+                <div class="nav-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <span class="nav-text">Analytics</span>
+            </a>
+            
+            <a href="#" class="nav-item" onclick="showSettings()">
+                <div class="nav-icon">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <span class="nav-text">Settings</span>
+            </a>
+            
+            <a href="../index.html" class="nav-item mt-5">
+                <div class="nav-icon">
+                    <i class="fas fa-external-link-alt"></i>
+                </div>
+                <span class="nav-text">Website</span>
+            </a>
+            
+            <a href="#" class="nav-item" onclick="logout()">
+                <div class="nav-icon">
+                    <i class="fas fa-sign-out-alt"></i>
+                </div>
+                <span class="nav-text">Logout</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Dashboard -->
+        <div id="dashboardSection">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Dashboard</h2>
+                <div class="d-flex align-items-center">
+                    <span class="me-3" id="welcomeMessage">Loading...</span>
+                    <div class="btn-group">
+                        <button class="btn btn-sm btn-outline-secondary" onclick="refreshDashboard()">
+                            <i class="fas fa-redo"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div class="row mb-4">
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #3b82f6, #60a5fa);">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-number" id="totalUsers">0</div>
+                        <div class="stat-label">Total Users</div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <div class="stat-number" id="pendingQuestions">0</div>
+                        <div class="stat-label">Pending Questions</div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #10b981, #34d399);">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-number" id="answeredQuestions">0</div>
+                        <div class="stat-label">Answered Questions</div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-number" id="activeToday">0</div>
+                        <div class="stat-label">Active Today</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Questions -->
+            <div class="data-table mb-4">
+                <div class="table-header">
+                    <h4 class="table-title">Recent Questions</h4>
+                    <button class="btn btn-sm btn-primary" onclick="showQuestions()">
+                        <i class="fas fa-list"></i> View All
+                    </button>
+                </div>
+                <div class="table-content">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Question</th>
+                                    <th>User</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentQuestionsTable">
+                                <tr>
+                                    <td colspan="6" class="text-center py-4">Loading questions...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Users -->
+            <div class="data-table">
+                <div class="table-header">
+                    <h4 class="table-title">Recent Users</h4>
+                    <button class="btn btn-sm btn-primary" onclick="showUsers()">
+                        <i class="fas fa-list"></i> View All
+                    </button>
+                </div>
+                <div class="table-content">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Country</th>
+                                    <th>Joined</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentUsersTable">
+                                <tr>
+                                    <td colspan="6" class="text-center py-4">Loading users...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Questions Management -->
+        <div id="questionsSection" style="display: none;">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Questions Management</h2>
+                <div class="btn-group">
+                    <button class="btn btn-sm btn-outline-secondary" onclick="refreshQuestions()">
+                        <i class="fas fa-redo"></i> Refresh
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Filter Tabs -->
+            <div class="mb-4">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-primary active" onclick="filterQuestions('pending')">
+                        Pending
+                    </button>
+                    <button type="button" class="btn btn-outline-primary" onclick="filterQuestions('answered')">
+                        Answered
+                    </button>
+                    <button type="button" class="btn btn-outline-primary" onclick="filterQuestions('all')">
+                        All Questions
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Questions Table -->
+            <div class="data-table">
+                <div class="table-header">
+                    <h4 class="table-title">Questions List</h4>
+                    <div class="input-group" style="width: 300px;">
+                        <input type="text" class="form-control form-control-sm" placeholder="Search questions..." id="searchQuestions">
+                        <button class="btn btn-sm btn-outline-secondary" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="table-content">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Question</th>
+                                    <th>User</th>
+                                    <th>Category</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="questionsTable">
+                                <tr>
+                                    <td colspan="7" class="text-center py-4">Loading questions...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Users Management -->
+        <div id="usersSection" style="display: none;">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Users Management</h2>
+                <div class="btn-group">
+                    <button class="btn btn-sm btn-outline-secondary" onclick="refreshUsers()">
+                        <i class="fas fa-redo"></i> Refresh
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Users Table -->
+            <div class="data-table">
+                <div class="table-header">
+                    <h4 class="table-title">Users List</h4>
+                    <div class="input-group" style="width: 300px;">
+                        <input type="text" class="form-control form-control-sm" placeholder="Search users..." id="searchUsers">
+                        <button class="btn btn-sm btn-outline-secondary" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="table-content">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Country</th>
+                                    <th>Type</th>
+                                    <th>Joined</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableContent">
+                                <tr>
+                                    <td colspan="9" class="text-center py-4">Loading users...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Answer Question Modal -->
+    <div class="modal-overlay" id="answerModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h5 class="modal-title">Answer Question</h5>
+                <button type="button" class="btn-close" onclick="closeAnswerModal()"></button>
+            </div>
+            <div class="modal-body">
+                <div id="questionDetails"></div>
+                <div class="mb-3">
+                    <label for="answerText" class="form-label">Your Answer</label>
+                    <textarea class="form-control" id="answerText" rows="8" placeholder="Write detailed answer here..."></textarea>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-secondary me-2" onclick="closeAnswerModal()">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="submitAnswer()">Submit Answer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const API_URL = 'http://localhost:5000/api';
+        let currentUser = null;
+        let currentQuestionId = null;
+        
+        // Check authentication
+        async function checkAuth() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = '../index.html';
+                return false;
+            }
+            
+            try {
+                const user = JSON.parse(localStorage.getItem('user'));
+                if (!user || user.user_type !== 'admin') {
+                    window.location.href = '../index.html';
+                    return false;
+                }
+                
+                currentUser = user;
+                document.getElementById('welcomeMessage').textContent = `Welcome, ${user.name}`;
+                return true;
+            } catch (error) {
+                window.location.href = '../index.html';
+                return false;
+            }
+        }
+        
+        // Show sections
+        function showSection(sectionId) {
+            // Hide all sections
+            ['dashboardSection', 'questionsSection', 'usersSection'].forEach(id => {
+                document.getElementById(id).style.display = 'none';
+            });
+            
+            // Remove active from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Show selected section and mark as active
+            document.getElementById(sectionId).style.display = 'block';
+            event.target.closest('.nav-item').classList.add('active');
+            
+            // Load data for section
+            if (sectionId === 'dashboardSection') {
+                loadDashboard();
+            } else if (sectionId === 'questionsSection') {
+                loadQuestions();
+            } else if (sectionId === 'usersSection') {
+                loadUsers();
+            }
+        }
+        
+        // Load dashboard data
+        async function loadDashboard() {
+            if (!await checkAuth()) return;
+            
+            try {
+                const response = await fetch(`${API_URL}/admin/statistics`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const stats = data.statistics;
+                    
+                    // Update stats cards
+                    document.getElementById('totalUsers').textContent = stats.total_users || 0;
+                    document.getElementById('pendingQuestions').textContent = stats.pending_questions || 0;
+                    document.getElementById('answeredQuestions').textContent = stats.answered_questions || 0;
+                    document.getElementById('activeToday').textContent = stats.active_today || 0;
+                    
+                    // Update badge
+                    document.getElementById('pendingBadge').textContent = stats.pending_questions || 0;
+                    
+                    // Load recent questions
+                    loadRecentQuestions();
+                    loadRecentUsers();
+                }
+            } catch (error) {
+                console.error('Dashboard load error:', error);
+            }
+        }
+        
+        // Load recent questions
+        async function loadRecentQuestions() {
+            try {
+                const response = await fetch(`${API_URL}/admin/questions?status=pending&limit=5`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const table = document.getElementById('recentQuestionsTable');
+                    table.innerHTML = '';
+                    
+                    if (data.questions.length === 0) {
+                        table.innerHTML = `
+                            <tr>
+                                <td colspan="6" class="text-center py-4">No recent questions</td>
+                            </tr>
+                        `;
+                        return;
+                    }
+                    
+                    data.questions.forEach(question => {
+                        const date = new Date(question.created_date);
+                        const formattedDate = date.toLocaleDateString();
+                        
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>Q${question.id}</td>
+                            <td style="max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                ${question.question}
+                            </td>
+                            <td>${question.user_name || 'Anonymous'}</td>
+                            <td>${formattedDate}</td>
+                            <td>
+                                <span class="badge ${question.status === 'pending' ? 'badge-pending' : 'badge-answered'}">
+                                    ${question.status}
+                                </span>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-primary" onclick="openAnswerModal(${question.id})">
+                                    <i class="fas fa-reply"></i> Answer
+                                </button>
+                            </td>
+                        `;
+                        table.appendChild(row);
+                    });
+                }
+            } catch (error) {
+                console.error('Recent questions load error:', error);
+            }
+        }
+        
+        // Load recent users
+        async function loadRecentUsers() {
+            try {
+                const response = await fetch(`${API_URL}/admin/users?limit=5`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const table = document.getElementById('recentUsersTable');
+                    table.innerHTML = '';
+                    
+                    if (data.users.length === 0) {
+                        table.innerHTML = `
+                            <tr>
+                                <td colspan="6" class="text-center py-4">No users found</td>
+                            </tr>
+                        `;
+                        return;
+                    }
+                    
+                    data.users.forEach(user => {
+                        const date = new Date(user.registration_date);
+                        const formattedDate = date.toLocaleDateString();
+                        
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>U${user.id}</td>
+                            <td>${user.name}</td>
+                            <td>${user.email}</td>
+                            <td>${user.country || 'N/A'}</td>
+                            <td>${formattedDate}</td>
+                            <td>
+                                <span class="badge ${user.status === 'active' ? 'badge-active' : 'badge-suspended'}">
+                                    ${user.status}
+                                </span>
+                            </td>
+                        `;
+                        table.appendChild(row);
+                    });
+                }
+            } catch (error) {
+                console.error('Recent users load error:', error);
+            }
+        }
+        
+        // Load all questions
+        async function loadQuestions(status = 'pending') {
+            if (!await checkAuth()) return;
+            
+            try {
+                const response = await fetch(`${API_URL}/admin/questions?status=${status}`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const table = document.getElementById('questionsTable');
+                    table.innerHTML = '';
+                    
+                    if (data.questions.length === 0) {
+                        table.innerHTML = `
+                            <tr>
+                                <td colspan="7" class="text-center py-4">No questions found</td>
+                            </tr>
+                        `;
+                        return;
+                    }
+                    
+                    data.questions.forEach(question => {
+                        const date = new Date(question.created_date);
+                        const formattedDate = date.toLocaleDateString();
+                        
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>Q${question.id}</td>
+                            <td style="max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                ${question.question}
+                            </td>
+                            <td>${question.user_name || 'Anonymous'}<br>
+                                <small class="text-muted">${question.user_email || ''}</small>
+                            </td>
+                            <td>${question.category || 'General'}</td>
+                            <td>${formattedDate}</td>
+                            <td>
+                                <span class="badge ${question.status === 'pending' ? 'badge-pending' : 'badge-answered'}">
+                                    ${question.status}
+                                </span>
+                            </td>
+                            <td>
+                                ${question.status === 'pending' ? `
+                                    <button class="btn btn-sm btn-primary mb-1" onclick="openAnswerModal(${question.id})">
+                                        <i class="fas fa-reply"></i>
+                                    </button>
+                                ` : ''}
+                                <button class="btn btn-sm btn-danger" onclick="deleteQuestion(${question.id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        `;
+                        table.appendChild(row);
+                    });
+                }
+            } catch (error) {
+                console.error('Questions load error:', error);
+            }
+        }
+        
+        // Filter questions
+        function filterQuestions(status) {
+            // Update active button
+            document.querySelectorAll('.btn-group .btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            loadQuestions(status);
+        }
+        
+        // Load all users
+        async function loadUsers() {
+            if (!await checkAuth()) return;
+            
+            try {
+                const response = await fetch(`${API_URL}/admin/users`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const table = document.getElementById('usersTableContent');
+                    table.innerHTML = '';
+                    
+                    if (data.users.length === 0) {
+                        table.innerHTML = `
+                            <tr>
+                                <td colspan="9" class="text-center py-4">No users found</td>
+                            </tr>
+                        `;
+                        return;
+                    }
+                    
+                    data.users.forEach(user => {
+                        const date = new Date(user.registration_date);
+                        const formattedDate = date.toLocaleDateString();
+                        
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>U${user.id}</td>
+                            <td>${user.name}</td>
+                            <td>${user.email}</td>
+                            <td>${user.phone || 'N/A'}</td>
+                            <td>${user.country || 'N/A'}</td>
+                            <td>
+                                <span class="badge ${user.user_type === 'admin' ? 'badge-primary' : 'badge-secondary'}">
+                                    ${user.user_type}
+                                </span>
+                            </td>
+                            <td>${formattedDate}</td>
+                            <td>
+                                <span class="badge ${user.status === 'active' ? 'badge-active' : 'badge-suspended'}">
+                                    ${user.status}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                        Actions
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#" onclick="updateUserStatus(${user.id}, 'active')">Activate</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="updateUserStatus(${user.id}, 'suspended')">Suspend</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="updateUserStatus(${user.id}, 'banned')">Ban</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        `;
+                        table.appendChild(row);
+                    });
+                }
+            } catch (error) {
+                console.error('Users load error:', error);
+            }
+        }
+        
+        // Open answer modal
+        async function openAnswerModal(questionId) {
+            currentQuestionId = questionId;
+            
+            try {
+                const response = await fetch(`${API_URL}/admin/questions?status=all`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const question = data.questions.find(q => q.id == questionId);
+                    if (question) {
+                        const date = new Date(question.created_date);
+                        const formattedDate = date.toLocaleString();
+                        
+                        document.getElementById('questionDetails').innerHTML = `
+                            <div class="alert alert-info">
+                                <h6>Question from ${question.user_name || 'Anonymous'}</h6>
+                                <p><strong>Date:</strong> ${formattedDate}</p>
+                                <p><strong>Category:</strong> ${question.category || 'General'}</p>
+                                <hr>
+                                <p><strong>Question:</strong></p>
+                                <p>${question.question}</p>
+                            </div>
+                        `;
+                        
+                        document.getElementById('answerText').value = question.answer || '';
+                        document.getElementById('answerModal').classList.add('active');
+                    }
+                }
+            } catch (error) {
+                console.error('Open answer modal error:', error);
+            }
+        }
+        
+        // Close answer modal
+        function closeAnswerModal() {
+            document.getElementById('answerModal').classList.remove('active');
+            currentQuestionId = null;
+        }
+        
+        // Submit answer
+        async function submitAnswer() {
+            if (!currentQuestionId) return;
+            
+            const answerText = document.getElementById('answerText').value.trim();
+            if (!answerText) {
+                alert('Please write an answer');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_URL}/admin/questions/${currentQuestionId}/answer`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ answer: answerText })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('Answer submitted successfully!');
+                    closeAnswerModal();
+                    loadQuestions('pending');
+                    loadDashboard();
+                } else {
+                    alert('Error: ' + (data.error || 'Failed to submit answer'));
+                }
+            } catch (error) {
+                console.error('Submit answer error:', error);
+                alert('Network error. Please try again.');
+            }
+        }
+        
+        // Update user status
+        async function updateUserStatus(userId, status) {
+            if (!confirm(`Are you sure you want to ${status} this user?`)) return;
+            
+            try {
+                const response = await fetch(`${API_URL}/admin/users/${userId}/status`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ status: status })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('User status updated successfully!');
+                    loadUsers();
+                    loadDashboard();
+                } else {
+                    alert('Error: ' + (data.error || 'Failed to update user status'));
+                }
+            } catch (error) {
+                console.error('Update user status error:', error);
+                alert('Network error. Please try again.');
+            }
+        }
+        
+        // Delete question
+        async function deleteQuestion(questionId) {
+            if (!confirm('Are you sure you want to delete this question?')) return;
+            
+            // Note: Add delete endpoint to server.js if needed
+            alert('Delete functionality to be implemented');
+        }
+        
+        // Logout
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '../index.html';
+        }
+        
+        // Refresh functions
+        function refreshDashboard() {
+            loadDashboard();
+        }
+        
+        function refreshQuestions() {
+            loadQuestions();
+        }
+        
+        function refreshUsers() {
+            loadUsers();
+        }
+        
+        // Navigation functions
+        function showDashboard() {
+            showSection('dashboardSection');
+        }
+        
+        function showQuestions() {
+            showSection('questionsSection');
+        }
+        
+        function showUsers() {
+            showSection('usersSection');
+        }
+        
+        function showContent() {
+            alert('Content management coming soon!');
+        }
+        
+        function showAnalytics() {
+            alert('Analytics coming soon!');
+        }
+        
+        function showSettings() {
+            alert('Settings coming soon!');
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async function() {
+            if (await checkAuth()) {
+                showDashboard();
+                loadDashboard();
+            }
+        });
+    </script>
+</body>
+                  </html>

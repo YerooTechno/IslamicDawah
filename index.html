@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Path to Truth - Islamic Dawah Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                <i class="fas fa-mosque"></i>
+                <span>Path to Truth</span>
+            </a>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#learn">Learn Islam</a>
+                <a href="#comparison">Comparison</a>
+                <a href="#questions">Q&A</a>
+                <a href="#about">About</a>
+                <a href="#" id="loginBtn" class="btn-login">Login</a>
+                <a href="#" id="registerBtn" class="btn-register">Register</a>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Invite to the way of your Lord with wisdom</h1>
+                <p class="verse">"Invite to the way of your Lord with wisdom and good instruction, and argue with them in a way that is best..." - Qur'an 16:125</p>
+                <p class="subtitle">A platform for authentic Islamic knowledge, respectful dialogue, and spiritual growth</p>
+                <div class="hero-buttons">
+                    <a href="#learn" class="btn-primary">Start Learning</a>
+                    <a href="#questions" class="btn-secondary">Ask a Question</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learn Islam Section -->
+    <section id="learn" class="section">
+        <div class="container">
+            <h2 class="section-title">Learn About Islam</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-book-quran"></i>
+                    </div>
+                    <h3>Who is Allah?</h3>
+                    <p>Understanding the Oneness of God in Islam, His attributes, and His relationship with creation.</p>
+                    <a href="#" class="card-link">Read More →</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Prophet Muhammad ﷺ</h3>
+                    <p>Learn about the final Messenger of God, his life, character, and message to humanity.</p>
+                    <a href="#" class="card-link">Read More →</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>The Holy Quran</h3>
+                    <p>Explore the divine revelation, its preservation, and its guidance for all aspects of life.</p>
+                    <a href="#" class="card-link">Read More →</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-pillar"></i>
+                    </div>
+                    <h3>Pillars of Islam</h3>
+                    <p>Understanding the five pillars that form the foundation of Muslim practice and faith.</p>
+                    <a href="#" class="card-link">Read More →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparative Religion Section -->
+    <section id="comparison" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">Comparative Religion</h2>
+            <p class="section-subtitle">Respectful comparison based on facts and authentic sources</p>
+            
+            <div class="comparison-content">
+                <div class="comparison-item">
+                    <div class="comparison-header">
+                        <h3><i class="fas fa-cross"></i> Islam & Christianity</h3>
+                    </div>
+                    <div class="comparison-body">
+                        <p>Common beliefs: Belief in One God, prophets, angels, and life after death.</p>
+                        <p>Key differences: Concept of Trinity vs Tawheed, Jesus' role, and scripture preservation.</p>
+                        <a href="#" class="btn-outline">Read Comparison</a>
+                    </div>
+                </div>
+                
+                <div class="comparison-item">
+                    <div class="comparison-header">
+                        <h3><i class="fas fa-star-of-david"></i> Islam & Judaism</h3>
+                    </div>
+                    <div class="comparison-body">
+                        <p>Common beliefs: Strict monotheism, dietary laws, and prophetic tradition.</p>
+                        <p>Key differences: Final prophet, scripture, and religious law.</p>
+                        <a href="#" class="btn-outline">Read Comparison</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Q&A Section -->
+    <section id="questions" class="section">
+        <div class="container">
+            <h2 class="section-title">Ask Your Questions</h2>
+            <p class="section-subtitle">Get authentic answers from qualified administrators</p>
+            
+            <div class="qa-container">
+                <div class="question-form">
+                    <h3>Ask a Question</h3>
+                    <form id="questionForm">
+                        <div class="form-group">
+                            <label for="question">Your Question *</label>
+                            <textarea id="question" rows="4" placeholder="Type your question here..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select id="category">
+                                <option value="belief">Belief (Aqeedah)</option>
+                                <option value="worship">Worship (Ibadah)</option>
+                                <option value="comparison">Comparative Religion</option>
+                                <option value="general">General Questions</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-primary">Submit Question</button>
+                    </form>
+                </div>
+                
+                <div class="questions-list">
+                    <h3>Recently Answered Questions</h3>
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="category-pill">Belief</span>
+                            <span class="date">2 days ago</span>
+                        </div>
+                        <h4>What does Islam say about the existence of God?</h4>
+                        <p class="answer">Islam teaches that God's existence is known through reason, observation of creation, and revelation...</p>
+                        <a href="#" class="read-more">Read full answer</a>
+                    </div>
+                    
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="category-pill">Worship</span>
+                            <span class="date">1 week ago</span>
+                        </div>
+                        <h4>Why do Muslims pray five times a day?</h4>
+                        <p class="answer">The five daily prayers maintain constant connection with Allah, discipline the soul, and remind of accountability...</p>
+                        <a href="#" class="read-more">Read full answer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section bg-light">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About This Platform</h2>
+                    <p>Path to Truth is dedicated to presenting authentic Islamic knowledge in a clear, respectful, and accessible manner. Our mission is to bridge understanding between Muslims and non-Muslims through wisdom and beautiful preaching.</p>
+                    <p>All content is reviewed by qualified individuals to ensure accuracy according to Quran and Sunnah.</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat">
+                        <h3>1000+</h3>
+                        <p>Questions Answered</p>
+                    </div>
+                    <div class="stat">
+                        <h3>50+</h3>
+                        <p>Articles Published</p>
+                    </div>
+                    <div class="stat">
+                        <h3>24/7</h3>
+                        <p>Available Worldwide</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Path to Truth</h3>
+                    <p>An Islamic Dawah platform inviting to the way of Allah with wisdom and beautiful preaching.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="#home">Home</a>
+                    <a href="#learn">Learn Islam</a>
+                    <a href="#comparison">Comparison</a>
+                    <a href="#questions">Q&A</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p><i class="fas fa-envelope"></i> contact@pathtotruth.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Path to Truth. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Register</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="regName">Full Name</label>
+                    <input type="text" id="regName" required>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Email</label>
+                    <input type="email" id="regEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Password</label>
+                    <input type="password" id="regPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="regConfirmPassword">Confirm Password</label>
+                    <input type="password" id="regConfirmPassword" required>
+                </div>
+                <button type="submit" class="btn-primary">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+  </html>
